@@ -1,8 +1,10 @@
 <template>
-    <TheNavbar />
-    <div class="container">
-        <!-- <h1 class="page-title">Agendas List</h1> -->
-        <AgendasSection :agendas="agendas" />
+    <div class="main" :class="{'darkmode': darkmode}">
+        <TheNavbar @changeTheme="darkmode = !darkmode" :darkmode="darkmode" />
+        <div class="container">
+            <!-- <h1 class="page-title">Agendas List</h1> -->
+            <AgendasSection :agendas="agendas" />
+        </div>
     </div>
 </template>
 
@@ -11,13 +13,22 @@ import TheNavbar from "@/components/TheNavbar.vue"
 import AgendasSection from "@/components/agendas/AgendasSection.vue"
 
 import getCollection from "@/composables/getCollection"
+import getUser from "@/composables/getUser"
+import { ref } from 'vue'
 
 export default {
     components: { TheNavbar, AgendasSection },
     setup() {
-        const { error, documents: agendas } = getCollection('agendas')
+        const { user } = getUser()
 
-        return { error, agendas }
+        const { error, documents: agendas } = getCollection(
+            'agendas',
+            ['userId', '==', user.value.uid]
+        )
+
+        const darkmode = ref(false)
+
+        return { error, agendas, darkmode }
     }
 }
 </script>
@@ -26,7 +37,8 @@ export default {
 .container {
     width: 90%;
     max-width: 1200px;
-    margin: 0 auto 50px;
+    margin: 0 auto;
+    padding-bottom: 40px;
 }
 .page-title {
     text-align: left;

@@ -8,12 +8,13 @@
                 </h1>
             <div class="links">
                 <div v-if="user">
-                    <router-link :to="{ name: 'Dashboard' }">My Agendas</router-link>
                     <button @click="handleLogout">Logout</button>
                 </div>
                 <div v-else>
                     <router-link class="btn" :to="{ name: 'Auth' }">Login/Signup</router-link>
                 </div>
+                <span class="material-icons-round theme-toggle" @click="changeTheme" v-if="darkmode">wb_sunny</span>
+                <span class="material-icons-round theme-toggle" @click="changeTheme" v-else>bedtime</span>
             </div>
         </nav>
     </div>
@@ -22,20 +23,27 @@
 <script>
 import useLogout from '@/composables/useLogout'
 import getUser from '@/composables/getUser'
+import { useRouter } from 'vue-router'
 
 export default {
-    setup() {
+    props:['darkmode'],
+    setup(props, context) {
         const { logout, error } = useLogout()
         const { user } = getUser()
+        const router = useRouter()
 
         const handleLogout = async () => {
             await logout()
             if(!error.value) {
-                console.log('user logged out');
+                router.push({ name: 'Auth' })
             }
         }
 
-        return { handleLogout, user }
+        const changeTheme = () => {
+            context.emit('changeTheme')
+        }
+
+        return { handleLogout, user, changeTheme }
     }
 }
 </script>
@@ -58,10 +66,17 @@ nav {
     }
     .links {
         margin-left: auto;
+        display: flex;
+        align-items: center;
 
         a, button {
             margin-left: 16px;
             font-size: 14px;
+        }
+
+        .theme-toggle {
+            margin-left: 20px;
+            cursor: pointer;
         }
     }
     .logo {

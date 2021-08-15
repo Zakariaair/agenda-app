@@ -23,13 +23,13 @@
             </ul>
         </div>
         <div class="items">
-            <div v-if="filteredAgendas">
+            <div v-if="filteredAgendas.length">
                 <AgendasListItem v-for="agenda in filteredAgendas" :key="agenda.id"
                         :agenda="agenda"
                         @edit="handleEditItem"/>
             </div>
             <div v-else>
-                <h2>There is nothing</h2>
+                <h2 class="empty">There is nothing</h2>
             </div>
         </div>
     </div>
@@ -58,7 +58,23 @@ export default {
         }
 
         const filteredAgendas = computed(() => {
-            return props.agendas
+            if(!props.agendas) {
+                return []
+            }
+            const now = new Date()
+            if(filter.value == 'all') {
+                return props.agendas
+            } else if (filter.value == 'completed') {
+                return props.agendas.filter(item => item.status)
+            } else if (filter.value == 'ongoing') {
+                return props.agendas.filter(item => {
+                    return !item.status && item.date.toDate().getTime() > now.getTime()
+                })
+            } else if (filter.value == 'expired') {
+                return props.agendas.filter(item => {
+                    return !item.status && item.date.toDate().getTime() < now.getTime()
+                })
+            }
         })
 
         const closeSidebar = () => {
@@ -111,6 +127,14 @@ export default {
     }
     .items {
         width: 70%;
+        overflow-y: auto;
+        height: calc(100vh - 120px);
+    }
+
+    .empty {
+        color: #aaa;
+        text-align: center;
+        margin-top: 10%;
     }
 }
 </style>

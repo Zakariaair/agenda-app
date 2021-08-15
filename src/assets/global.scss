@@ -10,6 +10,9 @@
     --warning: #d36002;
     --danger: #dd063c;
     --gray: #777; 
+    --light: #eee;
+    --dark: #2b2b2b;
+    --darken: #222223;
 }
 
 /* base styles  */
@@ -96,4 +99,60 @@ textarea {
     color: var(--danger);
     font-size: 14px;
     margin: 16px 0;
+}
+
+
+// **********************************************************
+/* Darkmode */
+
+html .darkmode,
+body .darkmode {
+    background: var(--dark) !important;
+}
+.darkmode * {
+    color: var(--light);
+}
+.darkmode {
+    color: var(--light) !important;
+
+    button, .btn { 
+        background: var(--secondary);
+        color: var(--dark) !important;
+    
+        &:hover {
+            background: var(--primary);
+            color: white !important;
+        }
+    
+        &:disabled {
+            color: var(--primary);
+            background: var(--secondary);
+        }
+    }
+
+    .navbar {
+        background-color: var(--darken) !important;
+    }
+    .agendas-panel {
+        .item,
+        .actions {
+            background-color: var(--darken) !important;
+        }
+
+        .actions ul li {
+            color: var(--light) !important;
+            .icon {
+                color: var(--light) !important;
+            }
+
+            &:hover {
+                background: var(--dark) !important;
+                color: var(--light) !important;
+                
+                .icon {
+                    color: var(--light) !important;
+                }
+            }
+        }
+    }
 }
