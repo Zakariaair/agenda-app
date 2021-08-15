@@ -24,5 +24,8 @@ const appFirestore = firebase.firestore()
 
 // using firebase timestamp
 const timestamp = firebase.firestore.FieldValue.serverTimestamp
+const timestampFromDate = (date) => {
+    return firebase.firestore.Timestamp.fromDate(date)
+}
 
-export { appAuth, appFirestore, timestamp }
+export { appAuth, appFirestore, timestamp, timestampFromDate }

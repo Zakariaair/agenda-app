@@ -3,24 +3,17 @@
       <div v-if="isSidebarActiveLocal" @click="closeSidebar" class="sidebar-backdrop"></div>
       <transition name="slide">
           <div class="sidebar-panel" v-if="isSidebarActiveLocal">
-              <h3 class="text-subject">Create new agenda</h3>
-              <hr class="text-subject">
-              <form @submit.prevent="handleSubmit">
-                <label>Title</label>
-                <input type="text" required v-model="title">
-                <label>Date</label>
-                <input type="datetime" required v-model="date">
-                <label>Description</label>
-                <textarea required v-model="description"></textarea>
-
-                <button>Create</button>
-              </form>
+            <CreateForm v-if="!isEditMode" @onSave="closeSidebar" />
+            <UpdateForm v-else :data="data" @onSave="closeSidebar" />
           </div>
       </transition>
   </div>
 </template>
 
 <script>
+import CreateForm from './CreateForm.vue'
+import UpdateForm from './UpdateForm.vue'
+
 export default {
   props: {
     isSidebarActive: {
@@ -32,20 +25,14 @@ export default {
       default: () => {},
     },
   },
-  data() {
-      return {
-            title: '',
-            date: '',
-            description: '',
-      }
-  },
+  components: { CreateForm, UpdateForm },
   watch: {
     isSidebarActive(val) {
       if (!val) return
       if (Object.entries(this.data).length === 0) {
-        this.clear()
+        // this.clear()
       } else {
-        this.reset()
+        // this.reset()
       }
     },
   },
@@ -57,20 +44,15 @@ export default {
       set(val) {
         if (!val) {
           this.$emit("closeSidebar")
-          this.clear()
+          // this.clear()
         }
       },
-    }
+    },
+    isEditMode() {
+      return (this.data.id !== undefined)
+    },
   },
   methods: {
-    handleSubmit() {
-        console.log('form submited');
-    },
-    clear() {
-    },
-    reset() {
-    },
-
     closeSidebar() {
       if (this.isSidebarActiveLocal) this.isSidebarActiveLocal = false
     }
@@ -120,9 +102,5 @@ export default {
     z-index: 999;
     padding: 3rem 20px 2rem 20px;
     width: 300px;
-}
-
-form {
-    margin-top: 20px;
 }
 </style>
