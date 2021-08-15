@@ -1,0 +1,158 @@
+/* font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+
+/* variables */
+:root {
+    --primary: #464436;
+    --secondary: #ffdd6d;
+    --success: #00b158;
+    --info: #1cc8ce;
+    --warning: #d36002;
+    --danger: #dd063c;
+    --gray: #777; 
+    --light: #eee;
+    --dark: #2b2b2b;
+    --darken: #222223;
+}
+
+/* base styles  */
+* {
+    font-family: 'Nunito', sans-serif;
+    color: var(--primary);
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #f5f5f5;
+}
+a {
+    text-decoration: none;
+}
+
+/* buttons */
+button, .btn { 
+    background: var(--secondary);
+    border-radius: 8px;
+    border: 0;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+
+    &:hover {
+        background: var(--primary);
+        color: white;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        color: var(--primary);
+        background: var(--secondary);
+        cursor: not-allowed;
+    }
+}
+
+hr {
+    margin: 6px 0;
+}
+.text-subject {
+    color: #727272;
+}
+
+/* forms */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+    background: white;
+}
+input, textarea {
+    outline: none;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto 10px;
+
+    padding: .438rem 1rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d8d6de;
+    border-radius: .357rem;
+    transition: 0.2s all;
+
+    &:focus {
+        box-shadow: 0 3px 10px 0 rgba(34,41,47,.1);
+        border-color: var(--secondary)
+    }
+}
+textarea {
+    resize: vertical;
+}
+
+/* error & warning text */
+.warning {
+    color: var(--warning);
+    font-size: 14px;
+    margin: 16px 0;
+}
+.error {
+    color: var(--danger);
+    font-size: 14px;
+    margin: 16px 0;
+}
+
+
+// **********************************************************
+/* Darkmode */
+
+html .darkmode,
+body .darkmode {
+    background: var(--dark) !important;
+}
+.darkmode * {
+    color: var(--light);
+}
+.darkmode {
+    color: var(--light) !important;
+
+    button, .btn { 
+        background: var(--secondary);
+        color: var(--dark) !important;
+    
+        &:hover {
+            background: var(--primary);
+            color: white !important;
+        }
+    
+        &:disabled {
+            color: var(--primary);
+            background: var(--secondary);
+        }
+    }
+
+    .navbar {
+        background-color: var(--darken) !important;
+    }
+    .agendas-panel {
+        .item,
+        .actions {
+            background-color: var(--darken) !important;
+        }
+
+        .actions ul li {
+            color: var(--light) !important;
+            .icon {
+                color: var(--light) !important;
+            }
+
+            &:hover {
+                background: var(--dark) !important;
+                color: var(--light) !important;
+                
+                .icon {
+                    color: var(--light) !important;
+                }
+            }
+        }
+    }
+}
