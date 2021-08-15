@@ -1,7 +1,7 @@
 <template>
-    <div class="item">
-        <div class="icon">
-            <span class="material-icons-round">{{ icon }}</span>
+    <div class="item" :class="{status}">
+        <div class="status" :class="{status}">
+            <span class="material-icons-round">{{ icons[status] }}</span>
         </div>
         <div class="info">
             <h3>{{ agenda.title }}</h3>
@@ -39,6 +39,7 @@ userId "TE3IvtMhsXMUVYQoUOjCyLjqnaw1"
 export default {
     props: ['agenda'],
     setup(props) {
+        const icons = {'ongoing':'check_circle', 'completed':'schedule', 'expired':'highlight_off',}
         const icon = computed(() => {
             if(props.status == 1) {
                 return 'check_circle'
@@ -50,8 +51,19 @@ export default {
                 }
             }
         })
+        const status = computed(() => {
+            if(props.status == 1) {
+                return 'ongoing'
+            } else {
+                if(props.agenda.date) {
+                    return 'completed'
+                } else {
+                    return 'expired'
+                }
+            }
+        })
 
-        return { icon }
+        return { icons, status }
     }
 }
 </script>
@@ -71,25 +83,37 @@ export default {
         box-shadow: 1px 2px 3px rgba(50,50,50,0.05);
         border-left-color: var(--info);
 
-        .icon .material-icons-round {
+        .status .material-icons-round {
             color: var(--info);
         }
+        .status.completed .material-icons-round {
+            color: var(--success);
+        }
+        .status.expired .material-icons-round {
+            color: var(--danger);
+        }
     }
-    &.complete {
-    border-left-color: #00ce89;
+    &.completed {
+        border-left-color: var(--success);
     }
-    &.complete .tick {
-        color: #00ce89;
+    &.completed .tick {
+        color: var(--success);
+    }
+    
+    &.expired {
+        border-left-color: var(--danger);
     }
 
-    .icon {
+
+    .status {
         max-width: 30px;
         max-height: 30px;
         overflow: hidden;
 
         .material-icons-round {
+            color: #bbb;
             font-size: 30px;
-            margin: 0;
+            cursor: default;
             transition: all ease 0.2s;
         }
     }
@@ -100,7 +124,7 @@ export default {
         margin-left: auto;
     }
 
-    .material-icons-round {
+    .icons .material-icons-round {
         font-size: 24px;
         margin-left: 10px;
         color: #bbb;

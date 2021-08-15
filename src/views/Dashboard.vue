@@ -2,18 +2,18 @@
     <TheNavbar />
     <div class="container">
         <h1 class="page-title">Agendas List</h1>
-        <AgendasList :agendas="agendas" />
+        <AgendasSection :agendas="agendas" />
     </div>
 </template>
 
 <script>
 import TheNavbar from "@/components/TheNavbar.vue"
-import AgendasList from "@/components/AgendasList.vue"
+import AgendasSection from "@/components/AgendasSection.vue"
 
 import getCollection from "@/composables/getCollection"
 
 export default {
-    components: { TheNavbar, AgendasList },
+    components: { TheNavbar, AgendasSection },
     setup() {
         const { error, documents: agendas } = getCollection('agendas')
 

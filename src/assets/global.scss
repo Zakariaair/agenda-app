@@ -5,6 +5,8 @@
 :root {
     --primary: #464436;
     --secondary: #ffdd6d;
+    --success: #00b158;
+    --info: #1cc8ce;
     --warning: #d36002;
     --danger: #dd063c;
 }
@@ -46,25 +48,41 @@ button, .btn {
     }
 }
 
+hr {
+    margin: 6px 0;
+}
+.text-subject {
+    color: #727272;
+}
+
 /* forms */
 form {
     max-width: 400px;
     margin: 0 auto;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 1px 2px 3px rgba(50,50,50,0.05);
-    border: 1px solid  var(--secondary);
+    padding: 10px;
     background: white;
 }
 input, textarea {
-    border: 0;
-    border-bottom: 1px solid var(--secondary);
-    padding: 10px;
     outline: none;
     display: block;
     width: 100%;
     box-sizing: border-box;
-    margin: 20px auto;
+    margin: 0 auto 10px;
+
+    padding: .438rem 1rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d8d6de;
+    border-radius: .357rem;
+    transition: 0.2s all;
+
+    &:focus {
+        box-shadow: 0 3px 10px 0 rgba(34,41,47,.1);
+        border-color: var(--secondary)
+    }
+}
+textarea {
+    resize: vertical;
 }
 
 /* error & warning text */

@@ -44,6 +44,10 @@ export default {
     form {
         width: 300px;
         margin: 20px auto;
+        padding: 30px;
+        border-radius: 30px;
+        box-shadow: 1px 2px 3px rgba(50,50,50,0.05);
+        border: 1px solid  var(--secondary);
     }
     label {
         display: block;

@@ -1,4 +1,9 @@
 <template>
+    <AgendaFormSidebar
+            @closeSidebar="showAddAgenda = false"
+            :isSidebarActive="showAddAgenda"
+            :data="{}" />
+
     <div class="agendas-panel">
         <div class="actions">
             <button @click="handleAddAgenda">New Agenda</button>
@@ -10,7 +15,7 @@
             </ul>
         </div>
         <div class="items">
-            <AgendasListItem v-for="agenda in filterdAgendas" :key="agenda.id" :agenda="agenda" />
+            <AgendasListItem v-for="agenda in filteredAgendas" :key="agenda.id" :agenda="agenda" />
         </div>
     </div>
 </template>
@@ -18,22 +23,24 @@
 <script>
 import { computed, ref } from 'vue'
 import AgendasListItem from './AgendasListItem.vue'
+import AgendaFormSidebar from './AgendaFormSidebar.vue'
 
 export default {
     props: ['agendas'],
-    components: { AgendasListItem },
+    components: { AgendaFormSidebar, AgendasListItem },
     setup(props) {
         const filter = ref('all')
+        const showAddAgenda = ref(false)
 
         const handleAddAgenda = () => {
-            console.log('new agenda');
+            showAddAgenda.value = true
         }
 
-        const filterdAgendas = computed(() => {
+        const filteredAgendas = computed(() => {
             return props.agendas
         })
 
-        return { filter, filterdAgendas, handleAddAgenda }
+        return { filter, filteredAgendas, handleAddAgenda, showAddAgenda }
     }
 }
 </script>
