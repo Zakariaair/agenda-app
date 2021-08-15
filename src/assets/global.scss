@@ -155,4 +155,16 @@ body .darkmode {
             }
         }
     }
+
+    .sidebar .sidebar-panel {
+        background: var(--dark) !important;
+        
+        form {
+            background: var(--dark) !important;
+        }
+    }
+    
+    input, textarea {
+        background: var(--darken) !important;
+    }
 }
