@@ -49,6 +49,9 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      if(!this.validate()) {
+        return
+      }
       const agenda = {
         title: this.title,
         description: this.description,
@@ -59,6 +62,24 @@ export default {
         this.clear()
         this.$emit('onSave')
       }
+    },
+    validate() {
+      this.error = ''
+      if(this.title.length < 3) {
+        this.error = 'title is too short'
+        return false
+      } else if(this.title.length > 100) {
+        this.error = 'title is too long. allowable length is 100 char'
+        return false
+      }
+      if(this.description.length < 3) {
+        this.error = 'description is too short'
+        return false
+      } else if(this.description.length > 500) {
+        this.error = 'description is too long. allowable length is 500 char'
+        return false
+      }
+      return true
     },
     clear() {
       this.title = ''
