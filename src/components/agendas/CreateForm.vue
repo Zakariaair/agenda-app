@@ -72,6 +72,7 @@ export default {
         this.error = 'description is too long. allowable length is 500 char'
         return false
       }
+      return true
     },
     clear() {
       this.title = ''
