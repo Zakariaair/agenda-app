@@ -13,7 +13,7 @@ import useLogin from '@/composables/useLogin'
 
 export default {
     setup(props, context) {
-        // refs
+        
         const email = ref('')
         const password = ref('')
 

@@ -9,8 +9,7 @@
             <div class="links">
                 <div v-if="user">
                     <router-link :to="{ name: 'Dashboard' }">My Agendas</router-link>
-                    <button v-if="!isPending" @click="handleLogout">Logout</button>
-                    <button v-else disabled>Logging out...</button>
+                    <button @click="handleLogout">Logout</button>
                 </div>
                 <div v-else>
                     <router-link class="btn" :to="{ name: 'Auth' }">Login/Signup</router-link>
