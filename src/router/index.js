@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Auth from '@/views/Auth.vue'
-const About = () => import('@/views/About.vue')
 const Dashboard = () => import('@/views/Dashboard.vue')
 
 const routes = [
@@ -13,11 +12,6 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: About
   }
 ]
 
